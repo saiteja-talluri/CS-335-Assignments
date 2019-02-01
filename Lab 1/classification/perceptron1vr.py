@@ -70,7 +70,19 @@ class Perceptron1vrClassifier:
 						f_tr.write(str(i + iteration*len(trainingData))+","+str(100*correct/(1.0*len(trainingData)))+"\n")
 
 				# "*** YOUR CODE HERE ***"
-				util.raiseNotDefined()
+				
+				vectors = util.Counter()
+				for l in self.legalLabels:
+					vectors[l] = self.weights[l] * trainingData[i]
+
+				guess =  vectors.argMax()
+				actual = trainingLabels[i]
+				
+				if(guess != actual):
+					self.weights[actual] += trainingData[i]
+					self.weights[guess] -= trainingData[i]
+
+				# "*** END OF CODE HERE ***"
 
 
 
