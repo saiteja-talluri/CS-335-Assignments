@@ -84,8 +84,6 @@ class Perceptron1vrClassifier:
 
 				# "*** END OF CODE HERE ***"
 
-
-
 		## Do not edit code below				
 		if(validate):
 			guesses = self.classify(testData)

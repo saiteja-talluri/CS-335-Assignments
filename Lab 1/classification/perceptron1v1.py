@@ -79,7 +79,22 @@ class Perceptron1v1Classifier:
 					
 
 				# "*** YOUR CODE HERE ***"
-				util.raiseNotDefined()
+
+				for label1_ind in range(len(self.legalLabels)):
+					for label2_ind in range(label1_ind + 1, len(self.legalLabels)):	
+						
+						label1 = self.legalLabels[label1_ind]
+						label2 = self.legalLabels[label2_ind]
+
+						if(label1 == trainingLabels[i]):
+							if (self.weights[frozenset([label1, label2])] * trainingData[i] > 0):
+								self.weights[frozenset([label1, label2])] -= trainingData[i]
+
+						elif(label2 == trainingLabels[i]):
+							if (self.weights[frozenset([label1, label2])] * trainingData[i] <= 0):
+								self.weights[frozenset([label1, label2])] += trainingData[i]
+
+				# "*** END OF CODE HERE ***"
 				
 		## Do not edit code below
 
