@@ -1,0 +1,146 @@
+Task 2: Analysing the 1vr perceptron's performance
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Part 1 : Variation with number of training data points 'seen'
+
+Nature of the plot : Steep increase at the start and constant rise-dip fluctuations towards the end.
+
+Observation :
+	
+1. As the number of data-points seen increases the training accuracy and testing accuracy steeply increased at the start.
+
+Reason:
+
+ We initially had no idea of the data so the accuracy was low, but no as we see data we tune our weights if we misclasify the data. This results in
+ getting some important characteristics of the data impact our weights, so seeing similar points raised our chances of classifying it correctly, 
+ so the steep increase in accuaracy in thr start.
+
+2. Once enough number of data-points have been seen (around 3000), there has been a constant rise-dip fluctuations in the training and test accuaracy.
+
+Reason:
+	
+ As we see more data-points there could have been a cluster of points corresponding to same label and the weights must have got shifted to classify them correctly and thus performing bad on the test set when compared to previous weights i.e., when the weights corresponding to those labels are being improved the weights for other labels were also changing which caused those other label points to be misclassified. So the test and train accuracy are fluctuating after seeing many data-points.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+Part 2 : Variation with training set size in each iteration
+
+Nature of the plot : Steep increase at the start and constant rise-dip fluctuations towards the end. (test set)
+					 Steep decrease at the start and constant rise-dip fluctuations towards the end. (training set)
+
+Observation :
+
+As the training set size increases (till 800) the training accuarcy decreases and test accuarcy increases steeply. But once the training set size becomes sufficiently large the training accuracy and the testing accuracy settles down and fluctuates (rise-drop). 
+
+Reason:
+	
+	(a) When the training set size is low, the training data would have been more clustered around some label, so the weights for that labels are trained and so the training set accuracy is high, but for the test data the data points have all sort of labels so the weights can't proper classify the test data so the accuarcy is very low.
+
+	(b) But once training set size increases to a significant amount, the training data would get more points with other labels so the weights for other labels also get updated and the test set accuracy increases significantly.
+
+	(c) When the training set size increases significantly, we see more data-points forming cluster of points corresponding to same label and the weights get shifted to classify them correctly and thus performing bad on the test set when compared to previous weights i.e., when the weights corresponding to those labels are being improved the weights for other labels were also changing which caused those other label points to be misclassified. So the test and train accuracy are fluctuating after the training set size is large.
+
+
+
+Q1. Imagine a point on the x axis with 0 training points: that is, a classifier that must make predictions based on no training data
+	at all! How would such a classifier make predictions? On this data set, what would be the expected accuracy of such a classifier?
+
+Answer :
+	
+	We have the initial set of weights as an array of 0's so for all the points we will have scores with respect to all weights as 0.
+
+	    def argMax(self):
+	        """
+	        Returns the key with the highest value.
+	        """
+	        if len(self.keys()) == 0: return None
+	        all = self.items()
+	        values = [x[1] for x in all]
+	        maxIndex = values.index(max(values))
+	        return all[maxIndex][0]
+
+	Since all the scores are 0 and according to the argMax code we will get the first index as the answer which corresponds to the number 0.
+	So it will always give the same prediction for every test data-point. All the test data-points with label corresponding to number 0 will get classified correctly.
+	
+	Hence the accuracy will be the percentage of testcases with the true label 0 , i.e, (2055/20,000)*100 = 10.275 %
+	
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Task 3.1 : Comparing the performances of perceptron1vr and perceptron1v1
+
+$ python dataClassifier.py -c 1vr -t 800 -s 8000
+Doing classification
+--------------------
+classifier:		1vr
+using enhanced features?:	False
+training set size:	800
+Extracting features...
+Training...
+Starting iteration  0 ...
+Starting iteration  1 ...
+Starting iteration  2 ...
+Testing...
+5706 correct out of 8000 (71.3%).
+
+$ python dataClassifier.py -c 1v1 -t 800 -s 8000
+Doing classification
+--------------------
+classifier:		1v1
+using enhanced features?:	False
+training set size:	800
+Extracting features...
+Training...
+Starting iteration  0 ...
+Starting iteration  1 ...
+Starting iteration  2 ...
+Testing...
+5724 correct out of 8000 (71.5%).
+
+
+$ python dataClassifier.py -c 1vr -t 80000 -s 20000
+Doing classification
+--------------------
+classifier:		1vr
+using enhanced features?:	False
+training set size:	80000
+Extracting features...
+Training...
+Starting iteration  0 ...
+Starting iteration  1 ...
+Starting iteration  2 ...
+Testing...
+14752 correct out of 20000 (73.8%).
+
+
+$ python dataClassifier.py -c 1v1 -t 80000 -s 20000
+Doing classification
+--------------------
+classifier:		1v1
+using enhanced features?:	False
+training set size:	80000
+Extracting features...
+Training...
+Starting iteration  0 ...
+Starting iteration  1 ...
+Starting iteration  2 ...
+Testing...
+15766 correct out of 20000 (78.8%).
+
+
+Observations :
+
+800 training and 8000 test --> 1vr accuracy : 71.3% and 1v1 accuracy : 71.5%
+80000 training and 20000 test --> 1vr accuracy : 73.8% and 1v1 accuracy : 78.8%
+
+Inferences :
+
+1. When the size of the training set is small as in the first case, the accuracy of both 1v1 and 1vr classifiers is almost the same. The main
+   reason for this is the classifiers might have seen some labels way more often than the others and so both classifiers have their weights
+   classifying data-points with those labels correctly and failing on other data-points in the test data. So the accuracies are more or less the same.
+
+2. When the size of the training set is large as in the second case, the 1v1 classifier out performs 1vr classfier. The main reason is that the
+   one vs one classifier has a weight corresponding to every pair of labels whereas the one vs rest has only weights corresponding to each label.
+   Moreover one vs rest classifier is more prone to outliers and the updates to the weights of a label cause a change in weights of other labels making it misclassify already correctly classified points whereas this doesn't happen too often with one vs one classifier.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
