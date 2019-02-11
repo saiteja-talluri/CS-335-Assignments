@@ -56,6 +56,9 @@ Accuaracy obtained = 90.73% (Seed value = 30)
 
 Intuition :
 
+This was quite suprising as almost 90% accuracy was achieved without any hidden layer, although it was stagnated at 91% and for more accuracy we need to have a hidden layer.
+This might be because most of the raw pixels data is being predicted by the 7840 weights into the 10 labels but for more fine tuning and to predict some digits written vaguely
+we need more nodes in the hidden layer.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -77,5 +80,7 @@ Accuaracy obtained = 40.6% (Seed value = 30)
 
 Intuition :
 
+As such this might not be a minimal topology, because coming up with a minimal topology for this task requires lot of training, but I tried to keep the number of layers minimum by
+getting proper accuracy, so I put 2 Convolutional Layers, 1 AvgPooling Layer and 1 Fully Connected Layer.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
