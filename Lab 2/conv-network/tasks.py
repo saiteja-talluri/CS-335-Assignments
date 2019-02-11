@@ -22,15 +22,17 @@ def taskSquare(draw):
 	# Eg. nn1.addLayer(FullyConnectedLayer(x,y))
 	###############################################
 	# TASK 2.1 - YOUR CODE HERE
-	raise NotImplementedError
+	nn1 = nn.NeuralNetwork(2, 0.3, 4, 20)
+	nn1.addLayer(FullyConnectedLayer(2,4))
+	nn1.addLayer(FullyConnectedLayer(4,2))
 	###############################################
 	nn1.train(XTrain, YTrain, XVal, YVal, False, True)
 	pred, acc = nn1.validate(XTest, YTest)
 	print('Test Accuracy ',acc)
 	# Run script visualizeTruth.py to visualize ground truth. Run command 'python3 visualizeTruth.py 2'
 	# Use drawSquare(XTest, pred) to visualize YOUR predictions.
-	if draw:
-		drawSquare(XTest, pred)
+	# if draw:
+	# 	drawSquare(XTest, pred)
 	return nn1, XTest, YTest
 
 
@@ -42,7 +44,9 @@ def taskSemiCircle(draw):
 	# Eg. nn1.addLayer(FullyConnectedLayer(x,y))
 	###############################################
 	# TASK 2.2 - YOUR CODE HERE
-	raise NotImplementedError
+	nn1 = nn.NeuralNetwork(2, 0.3, 4, 20)
+	nn1.addLayer(FullyConnectedLayer(2,2))
+	nn1.addLayer(FullyConnectedLayer(2,2))
 	###############################################
 	nn1.train(XTrain, YTrain, XVal, YVal, False, True)
 	pred, acc  = nn1.validate(XTest, YTest)
@@ -61,7 +65,10 @@ def taskMnist():
 	# Eg. nn1.addLayer(FullyConnectedLayer(x,y))
 	###############################################
 	# TASK 2.3 - YOUR CODE HERE
-	raise NotImplementedError	
+	# seed value = 30
+	nn1 = nn.NeuralNetwork(10, 0.3, 4, 20)
+	nn1.addLayer(FullyConnectedLayer(784,40))
+	nn1.addLayer(FullyConnectedLayer(40,10))
 	###############################################
 	nn1.train(XTrain, YTrain, XVal, YVal, False, True)
 	pred, acc  = nn1.validate(XTest, YTest)
@@ -85,7 +92,12 @@ def taskCifar10():
 	# # Eg. nn1.addLayer(FullyConnectedLayer(x,y))
 	# ###############################################
 	# # TASK 2.4 - YOUR CODE HERE
-	raise NotImplementedError	
+	nn1 = nn.NeuralNetwork(10,0.25,32,25)
+	nn1.addLayer(ConvolutionLayer([3,32,32],[10,10],10,3))
+	nn1.addLayer(AvgPoolingLayer([10,8,8],[2,2], 2))
+	nn1.addLayer(ConvolutionLayer([10,4,4],[2,2],15,2))	
+	nn1.addLayer(FlattenLayer())
+	nn1.addLayer(FullyConnectedLayer(60,10))
 	###################################################
 	# return nn1,  XTest, YTest, modelName # UNCOMMENT THIS LINE WHILE SUBMISSION
 

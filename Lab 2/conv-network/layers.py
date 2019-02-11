@@ -30,7 +30,8 @@ class FullyConnectedLayer:
 
 		###############################################
 		# TASK 1 - YOUR CODE HERE
-		raise NotImplementedError
+		self.data = np.matmul(X, self.weights) + self.biases
+		return sigmoid(self.data)
 		###############################################
 		
 	def backwardpass(self, lr, activation_prev, delta):
@@ -46,7 +47,13 @@ class FullyConnectedLayer:
 
 		###############################################
 		# TASK 2 - YOUR CODE HERE
-		raise NotImplementedError
+		del_out_curr = np.multiply(delta,derivative_sigmoid(self.data))
+		new_delta = np.matmul(del_out_curr,self.weights.T)
+		weight_updation = np.matmul(activation_prev.T,del_out_curr)
+		bias_updation = np.sum(del_out_curr,axis=0).reshape(self.biases.shape)
+		self.weights -= lr*weight_updation
+		self.biases -= lr*bias_updation
+		return new_delta
 		###############################################
 
 class ConvolutionLayer:
@@ -85,7 +92,16 @@ class ConvolutionLayer:
 
 		###############################################
 		# TASK 1 - YOUR CODE HERE
-		raise NotImplementedError
+		out = np.zeros([n,self.out_depth,self.out_row,self.out_col],dtype=float)
+		self.data = out
+		for i in range(0,n):
+			for j in range(0,self.out_depth):
+				for k in range(0,self.in_depth):
+					out[i][j] += conv(X[i][k],self.weights[j][k],self.stride)
+				out[i][j] += self.biases[j]
+		self.data = out
+		out = sigmoid(out)
+		return out
 		###############################################
 
 	def backwardpass(self, lr, activation_prev, delta):
@@ -101,7 +117,20 @@ class ConvolutionLayer:
 
 		###############################################
 		# TASK 2 - YOUR CODE HERE
-		raise NotImplementedError
+		delta_out_curr = np.multiply(delta,derivative_sigmoid(self.data))
+		new_delta = np.zeros_like(activation_prev)
+		weight_updation = np.zeros_like(self.weights)
+		bias_updation = np.zeros_like(self.biases)
+		for u in range(0,n):
+			for v in range(0,self.out_depth):
+				for i in range(0,self.out_row):
+					for j in range(0,self.out_col):
+						weight_updation[v] += delta_out_curr[u][v][i][j]*activation_prev[u,:,i*self.stride : i*self.stride + self.filter_row,j*self.stride : j*self.stride + self.filter_col]
+						bias_updation[v] += delta_out_curr[u][v][i][j]
+						new_delta[u,:,i*self.stride : i*self.stride + self.filter_row,j*self.stride : j*self.stride + self.filter_col] += delta_out_curr[u][v][i][j]*self.weights[v]
+		self.weights -= lr*weight_updation
+		self.biases -= lr*bias_updation
+		return new_delta
 		###############################################
 	
 class AvgPoolingLayer:
@@ -134,7 +163,11 @@ class AvgPoolingLayer:
 
 		###############################################
 		# TASK 1 - YOUR CODE HERE
-		raise NotImplementedError
+		out = np.zeros([n,self.out_depth,self.out_row,self.out_col],dtype=float)
+		for i in range(0,n):
+			for j in range(0,self.in_depth):
+					out[i][j] = avg(X[i][j],self.filter_row,self.filter_col,self.stride)
+		return out
 		###############################################
 
 
@@ -151,7 +184,14 @@ class AvgPoolingLayer:
 
 		###############################################
 		# TASK 2 - YOUR CODE HERE
-		raise NotImplementedError
+		new_delta = np.zeros_like(activation_prev)
+		delta_curr = delta/(self.filter_row*self.filter_col)
+		for u in range(0,n):
+			for v in range(self.out_depth):
+				for i in range(0,self.out_row):
+					for j in range(0,self.out_col):
+						new_delta[u,v,i*self.stride : i*self.stride + self.filter_row,j*self.stride : j*self.stride + self.filter_col] = delta_curr[u,v,i,j]
+		return new_delta
 		###############################################
 
 
@@ -174,3 +214,22 @@ def sigmoid(x):
 
 def derivative_sigmoid(x):
 	return sigmoid(x) * (1 - sigmoid(x))
+
+def conv(x,y,stride):
+	(a,b) = x.shape
+	(m,n) = y.shape
+	out = np.zeros([int((a - m)/stride + 1),int((b - n)/stride + 1)],dtype=float)
+
+	for i in range(0,a-m+1,stride):
+		for j in range(0,b-n+1,stride):
+			out[int(i/stride)][int(j/stride)] = np.sum(np.multiply(x[i:i+m,j:j+n],y))
+	return out
+
+def avg(x,m,n,stride):
+	(a,b) = x.shape
+	out = np.zeros([int((a - m)/stride + 1),int((b - n)/stride + 1)],dtype=float)
+
+	for i in range(0,a-m+1,stride):
+		for j in range(0,b-n+1,stride):
+			out[int(i/stride)][int(j/stride)] = np.mean(x[i:i+m,j:j+n])
+	return out

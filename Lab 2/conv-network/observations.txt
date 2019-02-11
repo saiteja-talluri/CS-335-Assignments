@@ -1,0 +1,56 @@
+Observations
+--------------------------------------------------------------------------------
+
+Task 2.1: XOR Data set 
+
+Hyperparamters:
+
+learning rate = 0.3
+batchsize = 4
+number of epochs = 20
+number of hidden layers = 1
+number of nodes in hidden layer = 4
+number of nodes in input layer = 2
+number of nodes in output layer = 2
+
+Accuaracy obtained = 94.89999999999999% (Seed value = 30)
+
+Intuition :
+
+In the XOR data set, we need to distinguish the four quadrants, so having four nodes in the hidden layer can help distinguish the four quadrants and two nodes in the output layer to choose the two quadrants corresponding to each label. So we get a net accuracy > 90% and this is the least topology we can get but it may take more epochs depending on seed value.
+--------------------------------------------------------------------------------
+
+Task 2.2: SemiCircle Data set
+
+Hyperparamters:
+
+learning rate = 0.3
+batchsize = 4
+number of epochs = 20
+number of hidden layers = 1
+number of nodes in hidden layer = 2
+number of nodes in input layer = 2
+number of nodes in output layer = 2
+
+Accuaracy obtained = 96.8% (Seed value = 30)
+
+Intuition :
+
+In the semicircle data set, most of the data is seperable by four straight lines(vertical diameter, vertical tangent in the right and two nearly tangential lines at the top). So having
+two nodes in the hidden layer and two nodes in the output layer gives an accuracy > 95% and this is the least topology we can get.
+--------------------------------------------------------------------------------
+
+Task 2.3: Compute Accuracy over MNIST (using Feed-Forward Neural Network)
+
+Hyperparamters:
+
+learning rate = 0.3
+batchsize = 4
+number of epochs = 20
+number of hidden layers = 0
+number of nodes in hidden layer = 0
+number of nodes in input layer = 784
+number of nodes in output layer = 10
+
+Accuaracy obtained = 96.8% (Seed value = 30)
+--------------------------------------------------------------------------------
