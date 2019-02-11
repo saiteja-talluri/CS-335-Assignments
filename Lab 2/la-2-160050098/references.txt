@@ -1,0 +1,5 @@
+List of references used for this assignment :
+
+1. https://www.jefkine.com/general/2016/09/05/backpropagation-in-convolutional-neural-networks/ --> Reading about backpropagation in CNN
+2. http://cs231n.github.io/convolutional-networks/ --> Read about CNN's
+3. https://docs.scipy.org/doc/numpy/ --> Numpy documentation for syntax
