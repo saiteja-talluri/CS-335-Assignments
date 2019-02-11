@@ -99,7 +99,7 @@ def taskCifar10():
 	nn1.addLayer(FlattenLayer())
 	nn1.addLayer(FullyConnectedLayer(60,10))
 	###################################################
-	# return nn1,  XTest, YTest, modelName # UNCOMMENT THIS LINE WHILE SUBMISSION
+	return nn1,  XTest, YTest, modelName # UNCOMMENT THIS LINE WHILE SUBMISSION
 
 
 	nn1.train(XTrain, YTrain, XVal, YVal, True, True, loadModel=False, saveModel=True, modelName=modelName)
