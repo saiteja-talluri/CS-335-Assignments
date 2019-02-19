@@ -1,86 +1,36 @@
-Observations
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0. Nature of the plot and description of observations
 
-Task 2.1: XOR Data set 
+Explantion :
 
-Hyperparamters:
+At the start the training accuracy in bagging increases fast compared to that of the boosting. The training accuracies for the boosting keeps on increasing with the number of classifiers whereas that of the bagging algorithm saturates after reaching a certain extent. 
 
-learning rate = 0.3
-batchsize = 4
-number of epochs = 20
-number of hidden layers = 1
-number of nodes in hidden layer = 4
-number of nodes in input layer = 2
-number of nodes in output layer = 2
+The test accuracy in boosting has constant rise and dips as the algorithm tries to classify the misclassified points but as the number of classifers increases the model overfits so the test accuarcy can attain a saturation. In bagging the test accuarcy increases quickly at the start because of the independent perceptrons but eventually slows down due to repetition in the sampled data.
 
-Accuaracy obtained = 94.89999999999999% (Seed value = 30)
-
-Intuition :
-
-In the XOR data set, we need to distinguish the four quadrants, so having four nodes in the hidden layer can help distinguish the four quadrants and two nodes in the output layer to choose the two quadrants corresponding to each label. So we get a net accuracy > 90% and this is the least topology we can get but it may take more epochs depending on seed value.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Task 2.2: SemiCircle Data set
-
-Hyperparamters:
-
-learning rate = 0.3
-batchsize = 4
-number of epochs = 20
-number of hidden layers = 1
-number of nodes in hidden layer = 2
-number of nodes in input layer = 2
-number of nodes in output layer = 2
-
-Accuaracy obtained = 96.8% (Seed value = 30)
-
-Intuition :
-
-In the semicircle data set, most of the data is seperable by four straight lines(vertical diameter, vertical tangent in the right and two nearly tangential lines at the top). So having
-two nodes in the hidden layer and two nodes in the output layer gives an accuracy > 95% and this is the least topology we can get.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Task 2.3: Compute Accuracy over MNIST (using Feed-Forward Neural Network)
-
-Hyperparamters:
-
-learning rate = 0.3
-batchsize = 4
-number of epochs = 20
-number of hidden layers = 0
-number of nodes in hidden layer = 0
-number of nodes in input layer = 784
-number of nodes in output layer = 10
-
-Accuaracy obtained = 90.73% (Seed value = 30)
-
-Intuition :
-
-This was quite suprising as almost 90% accuracy was achieved without any hidden layer, although it was stagnated at 91% and for more accuracy we need to have a hidden layer.
-This might be because most of the raw pixels data is being predicted by the 7840 weights into the 10 labels but for more fine tuning and to predict some digits written vaguely
-we need more nodes in the hidden layer.
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Task 2.4: Compute Accuracy over CIFAR (using Convolution Neural Network)
+1. Compare the training accuracies of both the algorithms and explain your observations from a theoretical point of view.
 
-seed value = 30
-learning rate = 0.25
-batchsize = 32
-number of epochs = 60
-number of hidden layers = 5
+Explanation :
 
-1. Convolutional Layer : In_channels = (3,32,32), Filter size : (10,10), Number of filters = 10, Stride = 3
-2. AvgPooling Layer : In_channels = (10,8,8), Filter size : (2,2), Stride = 3
-3. Convolutional Layer : In_channels = (10,4,4), Filter size : (2,2), Number of filters = 15, Stride = 2
-4. Flatten Layer
-5. Fully Connected Layer : In_nodes = 60, Out_nodes = 10
+At the start the training accuracy in bagging increases fast compared to that of the boosting. The training accuracies for the boosting keeps on increasing with the number of classifiers whereas that of the bagging algorithm saturates after reaching a certain extent. 
 
-Accuaracy obtained = 40.6% (Seed value = 30)
+Reasons:
 
-Intuition :
+(a) Bagging is a parallel ensemble where each perceptron is trained independently on a randomly sampled data. So in bagging the variance decreases rather than the bias, so even after increasing the classifiers the training accuracy saturates. But at the start since it is parallel the accuracy grows a bit fast.
 
-As such this might not be a minimal topology, because coming up with a minimal topology for this task requires lot of training, but I tried to keep the number of layers minimum by
-getting proper accuracy, so I put 2 Convolutional Layers, 1 AvgPooling Layer and 1 Fully Connected Layer.
+(b) Boosting is a sequential ensemble where each perceptron is trained to do well on those points which the previous preceptrons failed. So in boosting the bias decreases not the variance. Every perceptron tries to classfiy the misclassified points so far correctly. So the training accuracy keeps on increasing (indeed its boosting). But at the start since its sequential accuracy grows a bit slowly.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. "An ensemble combining perceptrons with weighted majority cannot be represented as an equivalent single perceptron." IS the above statement true? Give proper justification to your claim and accompany with examples if possible.
+
+Explanation :
+
+Yes, the given statement is true. Consider this example taught in the class. Lets say we have 2D data with labels +1 and -1 which is not linearly separable but can be seprated by 3 non concurrent lines i.e., points to the right/left of one line  are labelled +1 and left/right -1. 
+
+
+Now for this data the single perceptron cannot classify properly, but the ensemble combining perceptrons with weighted majority (weights being non-zero here) can classify the data efficiently by assigning proper weights to the individual perceptrons.
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
