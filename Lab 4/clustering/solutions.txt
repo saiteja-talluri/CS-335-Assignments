@@ -1,0 +1,76 @@
+Name: Saiteja Talluri
+Roll number: 160050098
+========================================
+
+
+================
+     TASK 2
+================
+
+
+1. Run your code on datasets/garden.csv, with different values of k. Looking at the performance plots, does the SSE of k-means algorithm ever increase as the iterations are made? (1 mark)
+Answer:
+
+After running the code with different values of k (k = 2,5,10,20) and observing the performance plot in all the cases, the SSE of the k-means algorithm is always decreasing as the number of iterations increases.
+
+Reason:  This can be shown mathematically. Consider the algorithm goes from iteration t to iteration t+1. We need to show that SSE(new_centroids,new_clustering) < SSE(old_centroid,old_clustering)
+		 We can say that SSE(old_centroids,new_clustering) < SSE(old_centroid,old_cluster) beacuse now the points are assigned to their closest cluster centres so SSE decreases.
+		 We can also say that SSE(new_centroids,new_clustering) < SSE(old_centroid,new_clustering) beacuse of the fact that the sum of the squares of distances from the centroid is always small than any other point. So from these two we can say that the SSE decreases as the number of iterations increase.
+
+
+3. Look at the files 3lines.png and mouse.png. Manually draw cluster boundaries around the 3 clusters visible in each file (no need to submit the hand drawn clusters). Test the k-means algorithm on the datasets datasets/3lines.csv and datasets/mouse.csv. How does the algorithm’s clustering compare with the clustering you would do by hand? Why do you think this happens? (1 mark)
+Answer:
+	3lines.png : In this case we expect that the points on the same line to be on the same cluster but we observe that kmeans algorithm seperates them along the Y-axis rather than horizontally.
+	mouse.png : In this case we expect that the clusters are three seperate disks (one large disk at the centre and two smaller disks at the top right and top left) but we observe that kmeans algorithm 
+				does not seperate it this way and we observe points in the centre disk to the top left are pulled into the top left disk and those to top right are pulled into top right disk, thus we can observe that it no longer forms seperate disks.
+
+	Explanation : The point here lies in the algorithm itself where we tend to minimise the sse, so in case of 3lines.png where the horizontal seperation between lines is small than the vertical spread, so to minise the sse the clusters are formed based on Y-spread so that the sse is less (cause if they are clustered based on horizontal axis then all points with varied Y-spread form a cluster this has higher sse than when clustered based on Y-spread). Similarly the case with the mouse.png where the outer points of the center disc, if they belong to the centre cluster the sse would be higher because the centroid is close to the centre. Rather if they belong to smaller disks at the top the sse would have been lower.
+
+
+================
+     TASK 3
+================
+
+1. For each dataset, with kmeansplusplus initialization algorithm, report “average SSE” and "average iterations". Explain the results. (2 mark)
+Answer:
+
+Dataset     |  Initialization | Average SSE    | Average Iterations
+==================================================================
+   100.csv  |        forgy    | 8472.63311469  |	 2.58
+   100.csv  |        kmeans++ | 8472.63311469  |     2.0
+  1000.csv  |        forgy    | 20456958.7852  |	 3.36
+  1000.csv  |        kmeans++ | 19887301.0042  |	 3.16
+ 10000.csv  |        forgy    | 191621368.049  |	 19.9
+ 10000.csv  |        kmeans++ | 22323178.8625  |     7.5
+
+Observations :	Both the average SSE and the Average Iterations in the case of kmeans++ initilialization algorithm are lower when compared to kmeans and this effect gets more significant with large
+				datasets.
+
+Reasons :	1. The lower number of average iterations can be ascertained to the fact that during the initiliazation the cluster centroids are chosen in a way that they are far away from one another i.e,
+			   by choosing higher weight for the farther points. So there is a likely chance compared to kmeans such that the points close by can be given different centroids so in lesser iterations it would converge
+			2. The average SSE in the case of kmeans++ is lower than that of kmeans because of the initial cluster centroids being farther away and the algorithm converging to better local minima.Moreover 	kmeans++ is guaranteed to find a solution that is O(logk) competitive to the optimal k-means solution in expectation, whereas kmeans does not have any bound, so average SSE for kmeans++ is less.
+			3. The initilaisation process is more worthy with a large dataset which can be observed from the table in case of a large dataset.
+
+================
+  TASK 4
+================
+
+1. Can you observe from the visualization that k-medians algorithm is more robust to outliers as compared to k-means? Why do you think this happens? (1.5 marks)
+Answer:
+
+	Yes, the k-medians algorithm is more robust to outliers as compared to k-means. The error in the case of k-medians is less than that of the k-means because mean is sensitive to outliers, whereas median isn't. We can illustrate it better with an example, consider a cluster of group by points and an outlier far away. The mean of these points in not even close to the cluster whereas the median is close to the cluster. So the k-means algorithm tries to include the outliers whereas that of k-medians doesn't. So while calculating the cluster centroids the k-medians will have less effect due to outliers while k-means get effected drastically.
+
+================
+  TASK 8
+================
+
+1. What do you observe as we reduce the number of clusters (k)? Answer in reference to the quality of decompressed image. (0.5 mark)
+Answer:
+	The decompressed image represents the segmented image with the cluster being atmost the argument k. So when we decrease the value of k the number of segments decrease and so the quality of the decompressed image decreases and eventually when k = 1 we end up with a single color.
+
+2. You can observe that for the small number of clusters, the degree of compression (original size/compressed size) is about the same as that of when we use larger number of clusters even though we need to store lesser number of colors. Can you tell why? How can we increase this ratio in case of smaller number of clusters? [1 mark]
+Answer: 
+
+(a)	The degree of compression = (height * width * no_channels * (1 byte))/(height * width * size_of_index + k * no_channels * (1 byte)), we can see that in the numerator height*width factor dominates k*no_channels significantly. So degree of compression (approx) = (height * width * no_channels * (1 byte))/(height * width * size_of_index) which is most likely independent of the number of clusters. So degree of compression when smaller number of clusters is same as that of when we use larger number of clusters.
+
+(b) The degree of compression can be increases if for smaller number of clusters we can lower of the size_of_index used to store the cluster labels when the number of clusters is small (i.e., use 4 bit = 0.5 byte when we have only 16 clusters). This can almost double the degree of compression. Incase of sparse cluster labels also this technique can be used.

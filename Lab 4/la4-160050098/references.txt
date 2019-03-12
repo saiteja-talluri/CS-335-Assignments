@@ -1,0 +1,5 @@
+List of references used for this assignment :
+
+1. https://docs.python.org/3/ --> Python Syntax
+2. https://www.pythonforbeginners.com/files/reading-and-writing-files-in-python --> Reading and Writing files syntax
+3. https://en.wikipedia.org/wiki/Netpbm_format --> Given reference for ppm and pbm
