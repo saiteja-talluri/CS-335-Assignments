@@ -1,0 +1,35 @@
+Name: Saiteja Talluri
+Roll number: 160050098
+========================================
+
+
+================
+     TASK 3
+================
+1. Report the hyperparameters used in observations.txt. Also, report the final SSE obtained on Test data (261 points). Make use of plot_kfold function to plot the SSE v/s lambda plot for ridge and lasso parts. Save them as ridge_kfoldcv.png and lasso_kfoldcv.png. Also, explain in observations.txt how does this plot help you tune the lambda.
+Answer:
+
+Ridge Regression
+
+Hyperparameter: lambda = 13
+
+Inference from Plot: This value of lambda can be obtained from the plot of validation set sse vs lambda for ridge regression. We can see the validation set sse decreases till lambda = 13 and then starts increasing with lambda. So the value 13 is suitable for the hyperparameter lambda.
+
+Final SSE on Test Data : 548961133962.599 (approx 5.489 x 1e11)
+
+Lasso Regression
+
+Hyperparameter: lambda = ___
+
+Inference from Plot: This value of lambda can be obtained from the plot of validation set sse vs lambda for lasso regression. We can see the validation set sse decreases (steeply at the start and then almost slowly) till lambda = ____ and then starts increasing with lambda. So the value 13 is suitable for the hyperparameter lambda.
+
+Final SSE on Test Data : ____________ (approx 5.489 x 1e11)
+
+
+================
+     TASK 5
+================
+
+1. Is there something unusual with the solution of Lasso compared to the Ridge? Explain why such a thing would happen? Is using lasso advantageous compared to ridge. How?
+Answer:
+
