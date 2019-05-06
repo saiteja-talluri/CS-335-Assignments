@@ -1,0 +1,65 @@
+Name: Saiteja Talluri
+Roll number: 160050098
+========================================
+
+
+================
+     TASK 3
+================
+1. Report the hyperparameters used in observations.txt. Also, report the final SSE obtained on Test data (261 points). Make use of plot_kfold function to plot the SSE v/s λ plot for ridge and lasso parts. Save them as ridge_kfoldcv.png and lasso_kfoldcv.png. Also, explain in observations.txt how does this plot help you tune the λ.
+Answer:
+
+Ridge Regression
+
+Hyperparameter: λ = 12.4
+
+Inference from Plot: This value of λ can be obtained from the plot of validation set sse vs λ for ridge regression. We can see the validation set sse decreases till λ = 12.4 and then starts increasing with λ. So the value 12.4 is suitable for the hyperparameter λ.
+
+Final SSE on Test Data : 549062279697.2908 (approx 5.490 x 1e11)
+
+Lasso Regression
+
+Hyperparameter: λ = 340000
+
+Inference from Plot: This value of λ can be obtained from the plot of validation set sse vs λ for lasso regression. We can see the validation set sse decreases (steeply at the start and then almost slowly) till λ = 340000 and then starts increasing with another small dip at λ = 420000 and then increases quickly. So the value 340000 is suitable for the hyperparameter λ as it has lower sse on validation set than 420000
+
+Final SSE on Test Data : 534714154169.34045 (approx 5.347 x 1e11)
+
+
+Observation : There are multiple local minima (340000, 420000) for the lasso regression problem as the loss function is not a convex curve whereas that of the ridge regression has a convex curve.
+
+================
+     TASK 5
+================
+
+1. Is there something unusual with the solution of Lasso compared to the Ridge? Explain why such a thing would happen? Is using lasso advantageous compared to ridge. How?
+Answer:
+
+We can observe that the weights produced by the Lasso regression are more sparse (i.e., more number of zeroes) compared to the weights obtained from ridge regression. It means that the Lasso regression produces a sparse model compared to the Ridge regression.
+
+Explanation :
+		In Lasso Regression minimizing Loss(w) + λ L1_Complexity(w) is equivalent to minimizing Loss(w) subject to the constraint that L1_Complexity(w) ≤ c, for some constant c that is related to λ. Now we can draw contours as follows :
+
+		(1) Diamond-shaped box representing the set of points w in two-dimensional weight space that have L1_complexity less than c. Our solution will have to be somewhere inside this box. 
+		(2) Concentric ovals represent contours of the loss function, with the minimum loss at the center. 
+
+		Similarly for the Ridge regression minimizing Loss(w) + λ L2_Complexity(w) is equivalent to minimizing Loss(w) subject to the constraint that L2_Complexity(w) ≤ c, for some constant c that is related to λ. Now we can draw contours as follows :
+
+		(1) Circle-shaped things representing the set of points w in two-dimensional weight space that have L2_complexity less than c. Our solution will have to be somewhere inside this circle. 
+		(2) Concentric ovals represent contours of the loss function, with the minimum loss at the center.
+
+		Now, 
+		(a) With Lasso regularization (box), the minimal achievable loss (concentric contours) often occurs on an axis, meaning a weight of zero. 
+		(b) With Ridge regularization (circle), the minimal loss is likely to occur anywhere on the circle, giving no preference to zero weights.
+
+		So this shows that the weights are sparse in Lasso compared to Ridge regression.
+
+Yes, using Lasso regression is advantageous compared to the Ridge regression.
+
+Explanation:
+		The important advantage that Lasso regularization has is that it tends to produce a sparse model. That is, it often sets many weights to zero, effectively declaring the corresponding attributes to be irrelevant i.e., just as DECISION-TREE-LEARNING does (although by a different mechanism). Such a hypotheses that discard attributes can be easier for a human to understand, and may be less likely to overfit. Moreover sparse weights can lead to faster calculations and can also be used to store more efficintly in settings where memeory is a constraint.
+
+
+
+
+

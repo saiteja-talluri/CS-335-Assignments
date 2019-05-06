@@ -1,0 +1,4 @@
+1c1
+< E E E E E E E E N N E E E E
+---
+> E E E E W E W E E W E E E E N N N S S S S S N S N S N S N N N S N N N S E E S S N N E W E E

@@ -1,0 +1,17 @@
+Name: Saiteja Talluri
+Roll number: 160050098
+========================================
+
+
+================
+     TASK 3
+================
+1. Run your code with grid20.txt maze and p = 0.2 and visualise the path using visualize.py script as mentioned above. Save the visualisation as path.png. Also, run your code with the grid10.txt maze and different values of p, ranging from 0 to 1 (both included) and plot the number of actions required to reach the exit from the given start state as a function of p. Save this plot as plot.png. Write and explain your observations from the two plots in observations.txt.
+
+Answer:
+
+As the value of p decreases from 1 to 0, the agent tends to take random direction and all the 'valid' directions get equally probable as opposed to higher probabilty for optimal direction. So we can see this from path.png where the agent takes random direction at times and then comes back and then finally lands up in end state. We can see from the plot.png how the length of path varies with p for a small grid. As p increases the length of path decreases drastically (p = 0.0 results in the poorest path of all) and almost becomes constant as p approaches 1.0. This is kind of justified because the encoding has been done based on the probability and so the decoding must as well be done the same way, so choosing randomly among the 'valid' directions results in increase in path length and effect is higher if it is equally random in all directions (i.e., optimal direction has not added advantage)
+
+
+
+

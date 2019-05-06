@@ -1,0 +1,46 @@
+Name: Saiteja Talluri
+Roll number: 160050098
+========================================
+
+
+================
+     TASK 3
+================
+1. Can we implement informed search techniques like A star for this Problem? Answer with respect to both path cost and heuristic. Write your explanation in answers.txt.
+Answer:
+
+We can implement A* search technique here but it is not of much advantage because we cannot determine a good consistent heuristic in this case as we are not aware of the how close a state is to the goal state. One trivial A*-search would be with a null heuristic and the path cost of the edge u->v will be the how many possibilities have been ruled out by assign while expanding u to v. So this trivial A*-search is equivalent to doing a BFS and not of great advantage.
+
+
+================
+     TASK 7
+================
+
+1. What would have been the number of nodes visited in case we used a simple Shortest Path Problem Algorithm like Dijikstra's?
+Answer:
+
+Dijikstra's Shortest Path Algorithm is same as the A*-search with null heuristic. So the number of nodes expanded are as follows
+
+(a) Number of nodes expanded for IIT: 80
+	Number of nodes expanded for Mumbai: 26743
+
+But if we use the heuristic (2d point distance given in util.py) in the A*-search algorithm, we get the number of nodes expanded as follows
+
+(b) Number of nodes expanded for IIT: 21
+	Number of nodes expanded for Mumbai: 13048
+
+
+2.	Also in case the problem would have required you to reach multiple nodes what possible heuristic can you come up with for A*?
+Answer:
+	
+	(a) The heuristic will be the distance of the current node to the nearest non visited goal node i,e., putting in a more formal way 
+		h(node) = min([distance(node,end) for end in goals and visited[end] = false]). This is a valid heuristic because we plan to reach the next closest goal node after reaching a previous goal. Once we reach all the goal nodes we are done.
+	(b) This problem is a smaller version of the Travelling Salesman problem wherein we need to reach all the nodes whereas here we only have a subset of the nodes as the goal
+		nodes, however the following problem is NP-hard as TSP is a case of it. The heuristic provided above can just help in getting an aproximate solution byt we cant gaurantee that it is the optimal solution.
+		
+
+
+
+
+
+

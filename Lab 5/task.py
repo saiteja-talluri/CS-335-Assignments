@@ -100,7 +100,7 @@ def k_fold_cross_validation(X, Y, k, lambdas, algo):
 			W_trained = algo(X_train, Y_train, _lambda)
 			sse_list.append(sse(X_test, Y_test, W_trained))
 		ans.append(np.mean(sse_list))
-		print("Lambda : " + _lambda + ", Ans : " + ans[-1])
+		print("Lambda : " + str(_lambda) + ", Ans : " + str(ans[-1]))
 	return ans
 
 def coord_grad_descent(X, Y, _lambda, max_iter=1000):
@@ -151,7 +151,17 @@ if __name__ == "__main__":
 	X, Y = read_data("./dataset/train.csv")
 	X, Y = preprocess(X, Y)
 	trainX, trainY, testX, testY = separate_data(X, Y)
-	
-	lambdas = [100, 1000, 10000, 100000, 300000, 400000, 450000, 500000, 600000, 800000, 1000000, 10000000, 100000000] # Assign a suitable list Task 5 need best SSE on test data so tune lambda accordingly
+
+	lambdas = [...] # Assign a suitable list Task 5 need best SSE on test data so tune lambda accordingly
 	scores = k_fold_cross_validation(trainX, trainY, 6, lambdas, coord_grad_descent)
-	plot_kfold(lambdas, scores)
+
+	'''
+	lambdas = [300000, 310000, 320000, 330000, 340000, 350000, 370000, 400000, 410000, 420000, 430000, 440000, 450000]
+	scores =  [168839043350.3544, 168724745503.99258, 168652817057.73956, 168609570271.94696,168591968665.28323, 168610986799.54117, 168743850943.06015, 168837183139.23697, 168805133677.0105, 168789684756.9399, 168791631804.54233, 168811506871.57938, 168854360254.16794]
+	'''
+
+	# plot_kfold(lambdas, scores)
+
+
+
+

@@ -1,0 +1,52 @@
+Name: Saiteja Talluri
+Roll number: 160050098
+========================================
+
+
+================
+     TASK 4
+================
+
+1. Comparing the different intialisation methods and Compare the graphs task2_submit.png , task3_submit.png and task4_submit.png and write down your observations in observations.txt. Comment on which initialisation method is better and why that is the case. 
+
+Ans.
+
+Given Tasks are as follows
+==================================
+Task 2 - Random Initilaisation
+Task 3 - Nearest Neighbour
+Task 4 - Euclidean Approximation
+
+Observations
+==================================
+task2_submit.png - tour length reaches around 800-850 on avg in around 60-70 iterations and bad initial tour is clearly visible where 70 iterations are made.
+task3_submit.png - tour length varies with the starting city indicating that it is a greedy algorithm and the tour length varies from [690,740] in around 8-14 iterations which also depends on intial city.
+task4_submit.png - tour length reaches around 710 in 16 iterations.
+
+Explanations
+==================================
+From the graphs it is clear that, doing hill climbing and starting with random tour can result in higher tour length on convergance on an average when compared to the other two initilaisations.
+According to me euclidean approximation is the best when compared to other two methods becuase we are gauranteed to have an upper bound of twice the optimal tour length i.e., the tour length which is always decreasing on reaching convergence is < 2*optimal tour length. For nearest neighbour greedy method there is always a possibilty of a start city which results in the worst possible tour length and so it is highly start state dependent. So Euclidean is the best and this is what is being reflected from the graphs as well.
+
+
+================
+   TASK 6,7,8
+================
+
+1. Compare the two graphs task{2,3,4}_submit.png and task{6,7,8}_submit.png and write down your observations in observations.txt. Comment your opinion on which neighbour generating method is better in this case and why? 
+
+Given Tasks are as follows
+==================================
+Task 2 - Random Initilaisation with 2opt and 3opt
+Task 3 - Nearest Neighbour with 2opt and 3opt
+Task 4 - Euclidean Approximation with 2opt and 3opt
+
+Observations
+==================================
+task6_submit.png - tour length reaches around 800 in 50 iterations - 2opt + 3opt is better than 2opt as it converges in less number of iterations as well.
+task7_submit.png - tour length is in the range [680,700] in around 8-10 iterations - 2opt + 3opt is better than 2opt as it converges in less iterations and also the tour length on average is less.
+task8_submit.png - tour length reaches around 700-710 in 16 iterations - 2opt + 3opt is slightly better (almost same as) than 2opt.
+
+Explanations
+==================================
+When we consider only 2 opt we are only checking limited number of possibilities by only removing two non consecutive edges, so exploring only O(n^2) neighbours whereas in 2opt + 3opt we are considering three edges and therefore exploring O(n^3) possibilties i.e., searching in a higher dimensional space so there is a larger chance that we will get closer to the optimal solution. Why can't we then consider higher opts as well. Well, doing so is simlar to exploring all the possible paths which require checking exponentially large number of paths which is not feasible.

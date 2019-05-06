@@ -1,0 +1,4 @@
+List of references used for this assignment :
+
+1. Lecture slides provided by Shivaram sir on Reinforcement Learning.
+2. python documentation

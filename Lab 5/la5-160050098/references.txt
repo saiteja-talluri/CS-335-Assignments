@@ -1,0 +1,3 @@
+List of references used for this assignment :
+
+1. Russell and Norvig book --> to read about Ridge and Lasso regression.
